@@ -1,0 +1,66 @@
+{
+  "appName": "AutoLoan - Car Loan",
+  "appId": "AutoLoan",
+  "rootPackage": "com.autoloan",
+  "databaseUrl": "jdbc:mysql://localhost:3306/autoloan?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+  "databaseDialect": "org.hibernate.dialect.MySQLDialect",
+  "databaseUser": "autoloan",
+  "databasePassword": "autoloan",
+  "databaseSchema": "autoloan",
+  "serverPort": "5001",
+  "buzzUnits": [
+    {
+      "name": "Product",
+      "packageName": "product",
+      "buzzAreas": [
+        {
+          "name": "Manufacture",
+          "packageName": "manufacture",
+          "buzzProcesses": [
+            {
+              "name": "Supply",
+              "packageName": "supply",
+              "crud": [
+                {
+                  "table": "product",
+                  "columns": [
+                    {
+                      "name": "name",
+                      "type": "VARCHAR",
+                      "size": 100,
+                      "nullable": false,
+                      "sortable": false,
+                      "unique": false
+                    }
+                  ],
+                  "oneToMany": [],
+                  "manyToOne": [],
+                  "ops": [
+                    {
+                      "verb": "GET",
+                      "type": "SIMPLE"
+                    },
+                    {
+                      "verb": "GET",
+                      "type": "LIST",
+                      "orderBy": "name"
+                    },
+                    {
+                      "verb": "POST"
+                    },
+                    {
+                      "verb": "PUT"
+                    },
+                    {
+                      "verb": "DELETE"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
