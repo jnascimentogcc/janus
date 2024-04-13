@@ -17,6 +17,8 @@ folders_array = [
     f"../output/src/main/java/{root_package[0]}/{root_package[1]}/helper/exception",
     "../output/src/main/resources"
 ]
+for process in config["buzzProcesses"]:
+    folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}")
 for folder in folders_array:
     if not os.path.exists(folder):
         os.mkdir(folder)

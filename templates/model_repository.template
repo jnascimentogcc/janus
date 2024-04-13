@@ -1,0 +1,6 @@
+package {{ root_package }}.{{ package }}.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface {{ entity }}Repository extends CrudRepository<{{ entity }}Entity, String> {
+}

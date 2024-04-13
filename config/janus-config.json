@@ -8,55 +8,48 @@
   "databasePassword": "autoloan",
   "databaseSchema": "autoloan",
   "serverPort": "5001",
-  "buzzUnits": [
+  "buzzProcesses": [
     {
-      "name": "Product",
-      "packageName": "product",
-      "buzzAreas": [
+      "name": "Supply",
+      "packageName": "supply",
+      "cruds": [
         {
-          "name": "Manufacture",
-          "packageName": "manufacture",
-          "buzzProcesses": [
+          "table": "product",
+          "columns": [
             {
-              "name": "Supply",
-              "packageName": "supply",
-              "crud": [
-                {
-                  "table": "product",
-                  "columns": [
-                    {
-                      "name": "name",
-                      "type": "VARCHAR",
-                      "size": 100,
-                      "nullable": false,
-                      "sortable": false,
-                      "unique": false
-                    }
-                  ],
-                  "oneToMany": [],
-                  "manyToOne": [],
-                  "ops": [
-                    {
-                      "verb": "GET",
-                      "type": "SIMPLE"
-                    },
-                    {
-                      "verb": "GET",
-                      "type": "LIST",
-                      "orderBy": "name"
-                    },
-                    {
-                      "verb": "POST"
-                    },
-                    {
-                      "verb": "PUT"
-                    },
-                    {
-                      "verb": "DELETE"
-                    }
-                  ]
-                }
-              ]
+              "name": "name",
+              "type": "VARCHAR",
+              "size": 100,
+              "nullable": false,
+              "sortable": false,
+              "unique": false
+            },
+            {
+              "name": "price",
+              "type": "decimal",
+              "nullable": true
+            }
+          ],
+          "oneToMany": [],
+          "manyToOne": [],
+          "ops": [
+            {
+              "verb": "GET",
+              "type": "SIMPLE"
+            },
+            {
+              "verb": "GET",
+              "type": "LIST",
+              "orderBy": "name"
+            },
+            {
+              "verb": "POST"
+            },
+            {
+              "verb": "PUT"
+            },
+            {
+              "verb": "DELETE"
             }
           ]
         }
