@@ -1,4 +1,4 @@
-package {{ root_package }}.{{ package }}.repository;
+package {{ root_package }}.{{ package }}.model;
 
 import org.springframework.data.repository.CrudRepository;
 

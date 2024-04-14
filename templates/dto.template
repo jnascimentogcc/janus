@@ -1,0 +1,18 @@
+package {{ root_package }}.{{ package }}.dto;
+
+import {{ root_package }}.helper.dto.MasterDTO;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class {{ entity }}DTO extends MasterDTO {
+    {% for column in columns %}
+    {{ "@NotBlank" if not column.nullable else "" -}}
+    {{ "@Size(min = 1, max = " ~ column.size ~ ")" if column.size > 0 else "" }}
+    private {{ column.type }} {{ column.name }};
+    {%- endfor %}
+}

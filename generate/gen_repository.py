@@ -4,7 +4,7 @@ import camelcaser as cc
 from helper.read_config import get_janus_config
 
 env = Environment(loader=FileSystemLoader("../templates/"))
-template = env.get_template("model_repository.template")
+template = env.get_template("repository.template")
 
 config = get_janus_config()
 for process in config["buzzProcesses"]:
@@ -17,6 +17,6 @@ for process in config["buzzProcesses"]:
             entity=entity
         )
         root_package = config["rootPackage"].replace(".", "/")
-        filename = f"../output/src/main/java/{root_package}/{packageName}/{entity}Repository.java"
+        filename = f"../output/src/main/java/{root_package}/{packageName}/model/{entity}Repository.java"
         with open(filename, mode="w", encoding="utf-8") as output:
             output.write(content)

@@ -18,16 +18,17 @@
           "columns": [
             {
               "name": "name",
-              "type": "VARCHAR",
+              "type": "String",
               "size": 100,
               "nullable": false,
-              "sortable": false,
               "unique": false
             },
             {
               "name": "price",
-              "type": "decimal",
-              "nullable": true
+              "type": "Double",
+              "size": 0,
+              "nullable": true,
+              "unique": false
             }
           ],
           "oneToMany": [],

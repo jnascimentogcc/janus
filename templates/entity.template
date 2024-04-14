@@ -1,0 +1,33 @@
+package {{ root_package }}.{{ package }}.model;
+
+import {{ root_package }}.helper.db.MasterEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "{{ entity|upper }}", schema = "{{ schema|upper }}")
+public class {{ entity }}Entity extends MasterEntity {
+    {% for column in columns %}
+    @Column(name = "{{ column.name|upper }}"{{ ", nullable = false" if not column.nullable else "" }}{{ ", length = " ~ column.size if column.size > 0 else "" }}{{ ", unique = true" if column.unique else "" }})
+    private {{ column.type }} {{ column.name }};
+    {% endfor %}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return new EqualsBuilder().appendSuper(super.equals(o)).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).toHashCode();
+    }
+}

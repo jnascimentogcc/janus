@@ -19,6 +19,10 @@ folders_array = [
 ]
 for process in config["buzzProcesses"]:
     folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}")
+    folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}/model")
+    folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}/dto")
+    folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}/controller")
+    folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}/service")
 for folder in folders_array:
     if not os.path.exists(folder):
         os.mkdir(folder)
