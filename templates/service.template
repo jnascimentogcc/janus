@@ -1,0 +1,42 @@
+package {{ root_package }}.{{ package }}.service;
+
+import {{ root_package }}.helper.exception.ItemNotFoundException;
+{%- for entity in entities %}
+import {{ root_package }}.{{ package }}.dto.{{ entity }}DTO;
+import {{ root_package }}.{{ package }}.model.{{ entity }}Entity;
+import {{ root_package }}.{{ package }}.model.{{ entity }}Repository;
+{% endfor %}
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class {{ service }}Service {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger({{ service }}Service.class);
+
+    {% for entity in entities -%}
+    private final {{ entity }}Repository {{ entity|lower }}Repository;
+    {%- endfor %}
+
+    {% for entity in entities -%}
+    public {{ entity }}DTO get{{ entity }}(String id) {
+        {{ entity }}DTO {{ entity|lower }}DTO = new {{ entity }}DTO();
+        try {
+            {{ entity }}Entity {{ entity|lower }}Entity = {{ entity|lower }}Repository.findById(id).orElseThrow();
+            BeanUtils.copyProperties({{ entity|lower }}Entity, {{ entity|lower }}DTO);
+            return {{ entity|lower }}DTO;
+        } catch (NoSuchElementException ex) {
+            LOGGER.info(String.format("{{ entity }} with id: %s not found.", id));
+            throw new ItemNotFoundException(String.format("{{ entity }} with id: %s not found.", id));
+        }
+    }
+    {%- endfor %}
+}
