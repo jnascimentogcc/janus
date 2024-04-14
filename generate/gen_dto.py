@@ -14,7 +14,6 @@ for process in config["buzzProcesses"]:
         content = template.render(
             root_package=config["rootPackage"],
             package=packageName,
-            schema=config["databaseSchema"],
             entity=entity,
             columns=crud["columns"]
         )

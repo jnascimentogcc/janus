@@ -4,7 +4,7 @@ import camelcaser as cc
 from helper.read_config import get_janus_config
 
 env = Environment(loader=FileSystemLoader("../templates/"))
-template = env.get_template("service.template")
+template = env.get_template("controller.template")
 
 config = get_janus_config()
 for process in config["buzzProcesses"]:
@@ -19,6 +19,6 @@ for process in config["buzzProcesses"]:
         service=cc.make_camel_case(packageName)
     )
     root_package = config["rootPackage"].replace(".", "/")
-    filename = f"../output/src/main/java/{root_package}/{packageName}/service/{cc.make_camel_case(packageName)}Service.java"
+    filename = f"../output/src/main/java/{root_package}/{packageName}/controller/{cc.make_camel_case(packageName)}Controller.java"
     with open(filename, mode="w", encoding="utf-8") as output:
         output.write(content)

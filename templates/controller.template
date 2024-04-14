@@ -1,0 +1,25 @@
+package {{ root_package }}.{{ package }}.controller;
+
+{% for entity in entities -%}
+import {{ root_package }}.{{ package }}.dto.{{ entity }}DTO;
+import {{ root_package }}.{{ package }}.service.{{ service }}Service;
+{% endfor %}
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@CrossOrigin
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/{{ package }}")
+public class SupplyController {
+
+    private final {{ service }}Service {{ service|lower }}Service;
+
+    {% for entity in entities -%}
+    @GetMapping("${apiprefix.v1}/{{ entity|lower }}/{id}")
+    public {{ entity }}DTO get{{ entity }}(@PathVariable String id) {
+        return {{ service|lower }}Service.get{{ entity }}(id);
+    }
+    {%- endfor %}
+
+}
