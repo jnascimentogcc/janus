@@ -41,16 +41,25 @@
             {
               "verb": "GET",
               "type": "LIST",
+              "findBy": "id",
               "orderBy": "name"
             },
             {
-              "verb": "POST"
+              "verb": "GET",
+              "type": "ALL",
+              "orderBy": "name"
             },
             {
-              "verb": "PUT"
+              "verb": "POST",
+              "type": ""
             },
             {
-              "verb": "DELETE"
+              "verb": "PUT",
+              "type": ""
+            },
+            {
+              "verb": "DELETE",
+              "type": ""
             }
           ]
         }

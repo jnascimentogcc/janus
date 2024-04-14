@@ -1,12 +1,15 @@
 package {{ root_package }}.{{ package }}.controller;
 
 {% for entity in entities -%}
-import {{ root_package }}.{{ package }}.dto.{{ entity }}DTO;
+import {{ root_package }}.{{ package }}.dto.{{ entity.table }}DTO;
 import {{ root_package }}.{{ package }}.service.{{ service }}Service;
 {% endfor %}
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+{% if hasList -%}
+import java.util.List;
+{% endif %}
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -16,10 +19,20 @@ public class SupplyController {
     private final {{ service }}Service {{ service|lower }}Service;
 
     {% for entity in entities -%}
-    @GetMapping("${apiprefix.v1}/{{ entity|lower }}/{id}")
-    public {{ entity }}DTO get{{ entity }}(@PathVariable String id) {
-        return {{ service|lower }}Service.get{{ entity }}(id);
+    {% for op in entity.ops -%}
+    {% if op.verb == "GET" and op.type == "SIMPLE" -%}
+    @GetMapping("${apiprefix.v1}/{{ entity.table|lower }}/{id}")
+    public {{ entity.table }}DTO get{{ entity.table }}(@PathVariable(name = "id") String id) {
+        return {{ service|lower }}Service.get{{ entity.table }}(id);
     }
+    {% endif -%}
+    {% if op.verb == "GET" and op.type == "ALL" %}
+    @GetMapping("${apiprefix.v1}/{{ entity.table|lower }}")
+    public List<{{ entity.table }}DTO> getAll{{ entity.table }}() {
+        return {{ service|lower }}Service.getAll{{ entity.table }}();
+    }
+    {%- endif %}
+    {%- endfor %}
     {%- endfor %}
 
 }
