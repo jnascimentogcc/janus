@@ -11,11 +11,15 @@ for process in config["buzzProcesses"]:
     packageName = process["packageName"]
     for crud in process["cruds"]:
         entity = cc.make_camel_case(crud["table"])
+        arr_columns = []
+        for column in crud["columns"]:
+            column["name"] = cc.make_lower_camel_case(column["name"])
+            arr_columns.append(column)
         content = template.render(
             root_package=config["rootPackage"],
             package=packageName,
             entity=entity,
-            columns=crud["columns"]
+            columns=arr_columns
         )
         root_package = config["rootPackage"].replace(".", "/")
         filename = f"../output/src/main/java/{root_package}/{packageName}/dto/{entity}DTO.java"

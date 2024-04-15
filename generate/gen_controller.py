@@ -12,7 +12,8 @@ for process in config["buzzProcesses"]:
     arr_entity = []
     hasList = False
     for crud in process["cruds"]:
-        crud["table"] = cc.make_camel_case(crud["table"])
+        crud["entity"] = cc.make_camel_case(crud["table"])
+        crud["entity_var"] = cc.make_lower_camel_case(crud["table"])
         arr_entity.append(crud)
         for op in crud["ops"]:
             if op["type"] == "LIST":

@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 public class {{ entity }}DTO extends MasterDTO {
     {% for column in columns %}
-    {{ "@NotBlank" if not column.nullable else "" -}}
+    {{ "@NotBlank" if not column.nullable else "" }}
     {{ "@Size(min = 1, max = " ~ column.size ~ ")" if column.size > 0 else "" }}
     private {{ column.type }} {{ column.name }};
-    {%- endfor %}
+    {% endfor %}
 }

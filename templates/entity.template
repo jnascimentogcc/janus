@@ -13,10 +13,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Getter
 @Setter
 @Entity
-@Table(name = "{{ entity|upper }}", schema = "{{ schema|upper }}")
+@Table(name = "{{ table|upper }}", schema = "{{ schema|upper }}")
 public class {{ entity }}Entity extends MasterEntity {
     {% for column in columns %}
-    @Column(name = "{{ column.name|upper }}"{{ ", nullable = false" if not column.nullable else "" }}{{ ", length = " ~ column.size if column.size > 0 else "" }}{{ ", unique = true" if column.unique else "" }})
+    @Column(name = "{{ column.table_name|upper }}"{{ ", nullable = false" if not column.nullable else "" }}{{ ", length = " ~ column.size if column.size > 0 else "" }}{{ ", unique = true" if column.unique else "" }})
     private {{ column.type }} {{ column.name }};
     {% endfor %}
     @Override

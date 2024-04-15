@@ -14,6 +14,43 @@
       "packageName": "supply",
       "cruds": [
         {
+          "table": "group_product",
+          "columns": [
+            {
+              "name": "name",
+              "type": "String",
+              "size": 100,
+              "nullable": false,
+              "unique": false
+            }
+          ],
+          "oneToMany": [],
+          "manyToOne": [],
+          "ops": [
+            {
+              "verb": "GET",
+              "type": "SIMPLE"
+            },
+            {
+              "verb": "GET",
+              "type": "ALL",
+              "orderBy": "name"
+            },
+            {
+              "verb": "POST",
+              "type": ""
+            },
+            {
+              "verb": "PUT",
+              "type": ""
+            },
+            {
+              "verb": "DELETE",
+              "type": ""
+            }
+          ]
+        },
+        {
           "table": "product",
           "columns": [
             {
@@ -29,6 +66,13 @@
               "size": 0,
               "nullable": true,
               "unique": false
+            },
+            {
+              "name": "id_group_product",
+              "type": "String",
+              "size": 36,
+              "nullable": false,
+              "unique": false
             }
           ],
           "oneToMany": [],
@@ -41,7 +85,7 @@
             {
               "verb": "GET",
               "type": "LIST",
-              "findBy": "id",
+              "findBy": "id_group_product",
               "orderBy": "name"
             },
             {
