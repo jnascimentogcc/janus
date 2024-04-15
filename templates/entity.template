@@ -19,6 +19,15 @@ public class {{ entity }}Entity extends MasterEntity {
     @Column(name = "{{ column.table_name|upper }}"{{ ", nullable = false" if not column.nullable else "" }}{{ ", length = " ~ column.size if column.size > 0 else "" }}{{ ", unique = true" if column.unique else "" }})
     private {{ column.type }} {{ column.name }};
     {% endfor %}
+    {%- for one in one_to_many %}
+    @OneToMany(mappedBy = "{{ entity_var }}Entity", fetch = FetchType.LAZY)
+    private List<{{ one }}Entity> list{{ one }}Entity;
+    {% endfor %}
+    {%- for many in many_to_one %}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_{{ table|upper }}", referencedColumnName = "ID")
+    private {{ many.referenced_table }}Entity {{ many.referenced_table_var }}Entity;
+    {% endfor %}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,3 +40,8 @@ public class {{ entity }}Entity extends MasterEntity {
         return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).toHashCode();
     }
 }
+
+    ### AllowPersonalEntity
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_GROUP_PRODUCT", referencedColumnName = "ID")
+    private GroupProductEntity groupProductEntity;

@@ -24,7 +24,11 @@
               "unique": false
             }
           ],
-          "oneToMany": [],
+          "oneToMany": [
+            {
+              "referenced_table": "product"
+            }
+          ],
           "manyToOne": [],
           "ops": [
             {
@@ -66,17 +70,14 @@
               "size": 0,
               "nullable": true,
               "unique": false
-            },
-            {
-              "name": "id_group_product",
-              "type": "String",
-              "size": 36,
-              "nullable": false,
-              "unique": false
             }
           ],
           "oneToMany": [],
-          "manyToOne": [],
+          "manyToOne": [
+            {
+              "referenced_table": "group_product"
+            }
+          ],
           "ops": [
             {
               "verb": "GET",

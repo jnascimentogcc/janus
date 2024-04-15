@@ -11,18 +11,31 @@ for process in config["buzzProcesses"]:
     packageName = process["packageName"]
     for crud in process["cruds"]:
         entity = cc.make_camel_case(crud["table"])
+        entity_var = cc.make_lower_camel_case(crud["table"])
         arr_columns = []
         for column in crud["columns"]:
             column["table_name"] = column["name"]
             column["name"] = cc.make_lower_camel_case(column["name"])
             arr_columns.append(column)
+        arr_one_to_many = []
+        for one_to_many in crud["oneToMany"]:
+            arr_one_to_many.append(cc.make_camel_case(one_to_many["referenced_table"]))
+        arr_many_to_one = []
+        for many_to_one in crud["manyToOne"]:
+            arr_many_to_one.append({
+                "referenced_table": cc.make_camel_case(many_to_one["referenced_table"]),
+                "referenced_table_var": cc.make_lower_camel_case(many_to_one["referenced_table"])
+            })
         content = template.render(
             root_package=config["rootPackage"],
             package=packageName,
             schema=config["databaseSchema"],
             entity=entity,
+            entity_var=entity_var,
             table=crud["table"],
-            columns=arr_columns
+            columns=arr_columns,
+            one_to_many=arr_one_to_many,
+            many_to_one=arr_many_to_one
         )
         root_package = config["rootPackage"].replace(".", "/")
         filename = f"../output/src/main/java/{root_package}/{packageName}/model/{entity}Entity.java"
