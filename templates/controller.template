@@ -25,14 +25,25 @@ public class SupplyController {
     public {{ entity.table }}DTO get{{ entity.table }}(@PathVariable(name = "id") String id) {
         return {{ service|lower }}Service.get{{ entity.table }}(id);
     }
-    {% endif -%}
-    {% if op.verb == "GET" and op.type == "ALL" %}
+    {%- endif -%}
+    {% if op.verb == "GET" and op.type == "ALL" -%}
     @GetMapping("${apiprefix.v1}/{{ entity.table|lower }}")
     public List<{{ entity.table }}DTO> getAll{{ entity.table }}() {
         return {{ service|lower }}Service.getAll{{ entity.table }}();
     }
     {%- endif %}
+    {% if op.verb == "POST" -%}
+    @PostMapping("${apiprefix.v1}/{{ entity.table|lower }}")
+    public {{ entity.table }}DTO add{{ entity.table }}(@RequestBody {{ entity.table }}DTO {{ entity.table|lower }}DTO) {
+        return {{ service|lower }}Service.add{{ entity.table }}({{ entity.table|lower }}DTO);
+    }
+    {% endif -%}
+    {% if op.verb == "PUT" -%}
+    @PutMapping("${apiprefix.v1}/{{ entity.table|lower }}/{id}")
+    public {{ entity.table }}DTO update{{ entity.table }}(@PathVariable(name = "id") String id, @RequestBody {{ entity.table }}DTO {{ entity.table|lower }}DTO) {
+        return {{ service|lower }}Service.update{{ entity.table }}(id, {{ entity.table|lower }}DTO);
+    }
+    {%- endif -%}
     {%- endfor %}
     {%- endfor %}
-
 }

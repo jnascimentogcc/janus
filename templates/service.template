@@ -34,9 +34,9 @@ public class {{ service }}Service {
     {% for op in entity.ops -%}
     {% if op.verb == "GET" and op.type == "SIMPLE" -%}
     public {{ entity.table }}DTO get{{ entity.table }}(String id) {
-        {{ entity.table }}DTO {{ entity.table|lower }}DTO = new {{ entity.table }}DTO();
         try {
             {{ entity.table }}Entity {{ entity.table|lower }}Entity = {{ entity.table|lower }}Repository.findById(id).orElseThrow();
+            {{ entity.table }}DTO {{ entity.table|lower }}DTO = new {{ entity.table }}DTO();
             BeanUtils.copyProperties({{ entity.table|lower }}Entity, {{ entity.table|lower }}DTO);
             return {{ entity.table|lower }}DTO;
         } catch (NoSuchElementException ex) {
@@ -44,8 +44,8 @@ public class {{ service }}Service {
             throw new ItemNotFoundException(String.format("{{ entity.table }} with id: %s not found.", id));
         }
     }
-    {% endif -%}
-    {% if op.verb == "GET" and op.type == "ALL" %}
+    {%- endif -%}
+    {% if op.verb == "GET" and op.type == "ALL" -%}
     public List<{{ entity.table }}DTO> getAll{{ entity.table }}() {
         List<{{ entity.table }}DTO> list{{ entity.table }}DTO = new ArrayList<>();
         Iterable<{{ entity.table }}Entity> it{{ entity.table }}Entity = {{ entity.table|lower }}Repository.findAll();
@@ -57,6 +57,30 @@ public class {{ service }}Service {
         return list{{ entity.table }}DTO;
     }
     {%- endif %}
-    {%- endfor %}
+    {% if op.verb == "POST" -%}
+    public {{ entity.table }}DTO add{{ entity.table }}({{ entity.table }}DTO {{ entity.table|lower }}DTO) {
+        {{ entity.table }}Entity {{ entity.table|lower }}Entity = new {{ entity.table }}Entity();
+        BeanUtils.copyProperties({{ entity.table|lower }}DTO, {{ entity.table|lower }}Entity);
+        {{ entity.table }}Entity {{ entity.table|lower }}Added = {{ entity.table|lower }}Repository.save({{ entity.table|lower }}Entity);
+        BeanUtils.copyProperties({{ entity.table|lower }}Added, {{ entity.table|lower }}DTO);
+        return {{ entity.table|lower }}DTO;
+    }
+    {%- endif -%}
+    {% if op.verb == "PUT" %}
+    public {{ entity.table }}DTO update{{ entity.table }}(String id, {{ entity.table }}DTO {{ entity.table|lower }}DTO) {
+        try {
+            {{ entity.table }}Entity {{ entity.table|lower }}Entity = {{ entity.table|lower }}Repository.findById(id).orElseThrow();
+            BeanUtils.copyProperties({{ entity.table|lower }}DTO, {{ entity.table|lower }}Entity);
+            {{ entity.table|lower }}Entity.setId(id);
+            {{ entity.table|lower }}Repository.save({{ entity.table|lower }}Entity);
+            {{ entity.table|lower }}DTO.setId(id);
+            return {{ entity.table|lower }}DTO;
+        } catch (NoSuchElementException ex) {
+            LOGGER.info(String.format("{{ entity.table }} with id: %s not found.", id));
+            throw new ItemNotFoundException(String.format("{{ entity.table }} with id: %s not found.", id));
+        }
+    }
+    {%- endif -%}
+    {%- endfor -%}
     {%- endfor %}
 }

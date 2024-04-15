@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 public abstract class MasterEntity {
     @Id
     @Column(name = "ID", length = 36, nullable = false)
-    @GenericGenerator(name = "sequenceUUID", strategy = "{{ root_package }}.helper.db.KeyGenerator")
+    @GenericGenerator(name = "sequenceUUID", type = {{ root_package }}.helper.db.KeyGenerator.class)
     @GeneratedValue(generator = "sequenceUUID")
     private String id;
 
