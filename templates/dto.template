@@ -15,4 +15,8 @@ public class {{ entity }}DTO extends MasterDTO {
     {{ "@Size(min = 1, max = " ~ column.size ~ ")" if column.size > 0 else "" }}
     private {{ column.type }} {{ column.name }};
     {% endfor %}
+    {% for column in many_to_one %}
+    {{ "@NotBlank" }}
+    private String id{{ column }};
+    {% endfor %}
 }

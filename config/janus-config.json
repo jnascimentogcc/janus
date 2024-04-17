@@ -3,7 +3,6 @@
   "appId": "AutoLoan",
   "rootPackage": "com.autoloan",
   "databaseUrl": "jdbc:mysql://localhost:3306/autoloan?useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true",
-  "databaseDialect": "org.hibernate.dialect.MySQLDialect",
   "databaseUser": "autoloan",
   "databasePassword": "autoloan",
   "databaseSchema": "autoloan",
@@ -13,6 +12,54 @@
       "name": "Supply",
       "packageName": "supply",
       "cruds": [
+        {
+          "table": "customer",
+          "columns": [
+            {
+              "name": "name",
+              "type": "String",
+              "size": 100,
+              "nullable": false,
+              "unique": false
+            },
+            {
+              "name": "fiscal_number",
+              "type": "String",
+              "size": 9,
+              "nullable": false,
+              "unique": true
+            }
+          ],
+          "oneToMany": [
+            {
+              "referencedTable": "order"
+            }
+          ],
+          "manyToOne": [],
+          "ops": [
+            {
+              "verb": "GET",
+              "type": "SIMPLE"
+            },
+            {
+              "verb": "GET",
+              "type": "ALL",
+              "orderBy": "name"
+            },
+            {
+              "verb": "POST",
+              "type": ""
+            },
+            {
+              "verb": "PUT",
+              "type": ""
+            },
+            {
+              "verb": "DELETE",
+              "type": ""
+            }
+          ]
+        },
         {
           "table": "group_product",
           "columns": [
@@ -26,10 +73,106 @@
           ],
           "oneToMany": [
             {
-              "referenced_table": "product"
+              "referencedTable": "product"
             }
           ],
           "manyToOne": [],
+          "ops": [
+            {
+              "verb": "GET",
+              "type": "SIMPLE"
+            },
+            {
+              "verb": "GET",
+              "type": "ALL",
+              "orderBy": "name"
+            },
+            {
+              "verb": "POST",
+              "type": ""
+            },
+            {
+              "verb": "PUT",
+              "type": ""
+            },
+            {
+              "verb": "DELETE",
+              "type": ""
+            }
+          ]
+        },
+        {
+          "table": "item_order",
+          "columns": [
+            {
+              "name": "qtd",
+              "type": "Integer",
+              "size": 0,
+              "nullable": false,
+              "unique": false
+            },
+            {
+              "name": "discount",
+              "type": "Double",
+              "size": 0,
+              "nullable": false,
+              "unique": false
+            }
+          ],
+          "oneToMany": [],
+          "manyToOne": [
+            {
+              "referencedTable": "order"
+            },
+            {
+              "referencedTable": "product"
+            }
+          ],
+          "ops": [
+            {
+              "verb": "GET",
+              "type": "SIMPLE"
+            },
+            {
+              "verb": "GET",
+              "type": "ALL",
+              "orderBy": "name"
+            },
+            {
+              "verb": "POST",
+              "type": ""
+            },
+            {
+              "verb": "PUT",
+              "type": ""
+            },
+            {
+              "verb": "DELETE",
+              "type": ""
+            }
+          ]
+        },
+        {
+          "table": "order",
+          "columns": [
+            {
+              "name": "date_order",
+              "type": "Object",
+              "size": 0,
+              "nullable": false,
+              "unique": false
+            }
+          ],
+          "oneToMany": [
+            {
+              "referencedTable": "item_order"
+            }
+          ],
+          "manyToOne": [
+            {
+              "referencedTable": "customer"
+            }
+          ],
           "ops": [
             {
               "verb": "GET",
@@ -62,7 +205,7 @@
               "type": "String",
               "size": 100,
               "nullable": false,
-              "unique": true
+              "unique": false
             },
             {
               "name": "price",
@@ -70,12 +213,23 @@
               "size": 0,
               "nullable": true,
               "unique": false
+            },
+            {
+              "name": "bar_code",
+              "type": "String",
+              "size": 20,
+              "nullable": false,
+              "unique": true
             }
           ],
-          "oneToMany": [],
+          "oneToMany": [
+            {
+              "referencedTable": "item_order"
+            }
+          ],
           "manyToOne": [
             {
-              "referenced_table": "group_product"
+              "referencedTable": "group_product"
             }
           ],
           "ops": [
@@ -85,17 +239,47 @@
             },
             {
               "verb": "GET",
-              "type": "LIST",
-              "findBy": "name",
-              "field": "String",
-              "condition": "CONTAIN"
+              "type": "ALL",
+              "orderBy": "name"
             },
             {
+              "verb": "POST",
+              "type": ""
+            },
+            {
+              "verb": "PUT",
+              "type": ""
+            },
+            {
+              "verb": "DELETE",
+              "type": ""
+            }
+          ]
+        },
+        {
+          "table": "tax",
+          "columns": [
+            {
+              "name": "name",
+              "type": "String",
+              "size": 100,
+              "nullable": false,
+              "unique": false
+            },
+            {
+              "name": "percent",
+              "type": "Double",
+              "size": 0,
+              "nullable": true,
+              "unique": false
+            }
+          ],
+          "oneToMany": [],
+          "manyToOne": [],
+          "ops": [
+            {
               "verb": "GET",
-              "type": "LIST",
-              "findBy": "name",
-              "field": "String",
-              "condition": "EXACTLY"
+              "type": "SIMPLE"
             },
             {
               "verb": "GET",

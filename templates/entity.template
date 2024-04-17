@@ -2,13 +2,15 @@ package {{ root_package }}.{{ package }}.model;
 
 import {{ root_package }}.helper.db.MasterEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+{% if has_list -%}
+import java.util.List;
+{%- endif %}
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ public class {{ entity }}Entity extends MasterEntity {
     {% endfor %}
     {%- for many in many_to_one %}
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_{{ table|upper }}", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_{{ many.table_name|upper }}", referencedColumnName = "ID")
     private {{ many.referenced_table }}Entity {{ many.referenced_table_var }}Entity;
     {% endfor %}
     @Override
@@ -40,8 +42,3 @@ public class {{ entity }}Entity extends MasterEntity {
         return new HashCodeBuilder(17, 37).appendSuper(super.hashCode()).toHashCode();
     }
 }
-
-    ### AllowPersonalEntity
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_GROUP_PRODUCT", referencedColumnName = "ID")
-    private GroupProductEntity groupProductEntity;

@@ -13,10 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-{%- if hasList %}
 import java.util.ArrayList;
 import java.util.List;
-{% endif -%}
+
 import java.util.NoSuchElementException;
 
 @Service
@@ -40,7 +39,7 @@ public class {{ service }}Service {
             BeanUtils.copyProperties({{ entity.entity_var }}Entity, {{ entity.entity_var }}DTO);
             return {{ entity.entity_var }}DTO;
         } catch (NoSuchElementException ex) {
-            LOGGER.info(String.format("{{ entity.entity }} with id: %s not found.", id));
+            LOGGER.info("{{ entity.entity }} with id: {} not found.", id);
             throw new ItemNotFoundException(String.format("{{ entity.entity }} with id: %s not found.", id));
         }
     }
@@ -59,8 +58,17 @@ public class {{ service }}Service {
     {%- endif %}
     {% if op.verb == "POST" -%}
     public {{ entity.entity }}DTO add{{ entity.entity }}({{ entity.entity }}DTO {{ entity.entity_var }}DTO) {
+        {%- for referenced in entity.many_to_one %}
+        if (!{{ referenced.entity_var }}Repository.existsById({{ entity.entity_var }}DTO.getId{{ referenced.entity }}())) {
+            LOGGER.info("{{ referenced.entity }} with id: {} not found.", {{ entity.entity_var }}DTO.getId{{ referenced.entity }}());
+            throw new ItemNotFoundException(String.format("{{ referenced.entity }} with id: %s not found.", {{ entity.entity_var }}DTO.getId{{ referenced.entity }}()));
+        }
+        {%- endfor %}
         {{ entity.entity }}Entity {{ entity.entity_var }}Entity = new {{ entity.entity }}Entity();
         BeanUtils.copyProperties({{ entity.entity_var }}DTO, {{ entity.entity_var }}Entity);
+        {%- for referenced in entity.many_to_one %}
+        {{ entity.entity_var }}Entity.set{{ referenced.entity }}Entity({{ referenced.entity_var }}Repository.findById({{ entity.entity_var }}DTO.getId{{ referenced.entity }}()).orElseThrow());
+        {%- endfor %}
         {{ entity.entity }}Entity {{ entity.entity_var }}Added = {{ entity.entity_var }}Repository.save({{ entity.entity_var }}Entity);
         BeanUtils.copyProperties({{ entity.entity_var }}Added, {{ entity.entity_var }}DTO);
         return {{ entity.entity_var }}DTO;
@@ -69,14 +77,23 @@ public class {{ service }}Service {
     {% if op.verb == "PUT" %}
     public {{ entity.entity }}DTO update{{ entity.entity }}(String id, {{ entity.entity }}DTO {{ entity.entity_var }}DTO) {
         try {
+            {%- for referenced in entity.many_to_one %}
+            if (!{{ referenced.entity_var }}Repository.existsById({{ entity.entity_var }}DTO.getId{{ referenced.entity }}())) {
+                LOGGER.info("{{ referenced.entity }} with id: {} not found.", {{ entity.entity_var }}DTO.getId{{ referenced.entity }}());
+                throw new ItemNotFoundException(String.format("{{ referenced.entity }} with id: %s not found.", {{ entity.entity_var }}DTO.getId{{ referenced.entity }}()));
+            }
+            {%- endfor %}
             {{ entity.entity }}Entity {{ entity.entity_var }}Entity = {{ entity.entity_var }}Repository.findById(id).orElseThrow();
             BeanUtils.copyProperties({{ entity.entity_var }}DTO, {{ entity.entity_var }}Entity);
             {{ entity.entity_var }}Entity.setId(id);
+            {%- for referenced in entity.many_to_one %}
+            {{ entity.entity_var }}Entity.set{{ referenced.entity }}Entity({{ referenced.entity_var }}Repository.findById({{ entity.entity_var }}DTO.getId{{ referenced.entity }}()).orElseThrow());
+            {%- endfor %}
             {{ entity.entity_var }}Repository.save({{ entity.entity_var }}Entity);
             {{ entity.entity_var }}DTO.setId(id);
             return {{ entity.entity_var }}DTO;
         } catch (NoSuchElementException ex) {
-            LOGGER.info(String.format("{{ entity.entity }} with id: %s not found.", id));
+            LOGGER.info("{{ entity.entity }} with id: {} not found.", id);
             throw new ItemNotFoundException(String.format("{{ entity.entity }} with id: %s not found.", id));
         }
     }
@@ -87,7 +104,7 @@ public class {{ service }}Service {
             {{ entity.entity }}Entity {{ entity.entity_var }}Entity = {{ entity.entity_var }}Repository.findById(id).orElseThrow();
             {{ entity.entity_var }}Repository.delete({{ entity.entity_var }}Entity);
         } catch (NoSuchElementException ex) {
-            LOGGER.info(String.format("{{ entity.entity }} with id: %s not found.", id));
+            LOGGER.info("{{ entity.entity }} with id: {}} not found.", id);
             throw new ItemNotFoundException(String.format("{{ entity.entity }} with id: %s not found.", id));
         }
     }
