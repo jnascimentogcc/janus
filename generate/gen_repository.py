@@ -10,11 +10,19 @@ config = get_janus_config()
 for process in config["buzzProcesses"]:
     packageName = process["packageName"]
     for crud in process["cruds"]:
+        arr_unique = []
+        for column in crud["columns"]:
+            if column["unique"]:
+                arr_unique.append({
+                    "column": cc.make_camel_case(column["name"]),
+                    "type": column["type"]
+                })
         entity = cc.make_camel_case(crud["table"])
         content = template.render(
             root_package=config["rootPackage"],
             package=packageName,
-            entity=entity
+            entity=entity,
+            unique=arr_unique
         )
         root_package = config["rootPackage"].replace(".", "/")
         filename = f"../output/src/main/java/{root_package}/{packageName}/model/{entity}Repository.java"

@@ -62,7 +62,7 @@
               "type": "String",
               "size": 100,
               "nullable": false,
-              "unique": false
+              "unique": true
             },
             {
               "name": "price",
@@ -86,7 +86,15 @@
             {
               "verb": "GET",
               "type": "LIST",
-              "findBy": "id_group_product",
+              "findBy": "name",
+              "condition": "CONTAIN",
+              "orderBy": "name"
+            },
+            {
+              "verb": "GET",
+              "type": "LIST",
+              "findBy": "name",
+              "condition": "EXACTLY",
               "orderBy": "name"
             },
             {
