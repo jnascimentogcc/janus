@@ -6,4 +6,10 @@ public interface {{ entity }}Repository extends CrudRepository<{{ entity }}Entit
     {% for uk in unique%}
     public Optional<{{ uk.type }}> findBy{{ uk.column }}();
     {%- endfor %}
+    {% for uk in contain %}
+    public List<{{ entity }}> findBy{{ uk.column }}Contains({{ uk.field }} {{ uk.column_var }});
+    {%- endfor %}
+    {% for uk in exactly %}
+    public List<{{ entity }}> findBy{{ uk.column }}({{ uk.field }} {{ uk.column_var }});
+    {%- endfor %}
 }

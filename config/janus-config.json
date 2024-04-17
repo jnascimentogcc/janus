@@ -87,15 +87,15 @@
               "verb": "GET",
               "type": "LIST",
               "findBy": "name",
-              "condition": "CONTAIN",
-              "orderBy": "name"
+              "field": "String",
+              "condition": "CONTAIN"
             },
             {
               "verb": "GET",
               "type": "LIST",
               "findBy": "name",
-              "condition": "EXACTLY",
-              "orderBy": "name"
+              "field": "String",
+              "condition": "EXACTLY"
             },
             {
               "verb": "GET",

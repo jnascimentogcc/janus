@@ -17,12 +17,30 @@ for process in config["buzzProcesses"]:
                     "column": cc.make_camel_case(column["name"]),
                     "type": column["type"]
                 })
+        arr_list_contain = []
+        for op in crud["ops"]:
+            if op["verb"] == "GET" and op["type"] == "LIST" and op["condition"] == "CONTAIN":
+                arr_list_contain.append({
+                    "column": cc.make_camel_case(op["findBy"]),
+                    "column_var": cc.make_lower_camel_case(op["findBy"]),
+                    "field": cc.make_camel_case(op["field"])
+                })
+        arr_list_exactly = []
+        for op in crud["ops"]:
+            if op["verb"] == "GET" and op["type"] == "LIST" and op["condition"] == "EXACTLY":
+                arr_list_exactly.append({
+                    "column": cc.make_camel_case(op["findBy"]),
+                    "column_var": cc.make_lower_camel_case(op["findBy"]),
+                    "field": cc.make_camel_case(op["field"])
+                })
         entity = cc.make_camel_case(crud["table"])
         content = template.render(
             root_package=config["rootPackage"],
             package=packageName,
             entity=entity,
-            unique=arr_unique
+            unique=arr_unique,
+            contain=arr_list_contain,
+            exactly=arr_list_exactly
         )
         root_package = config["rootPackage"].replace(".", "/")
         filename = f"../output/src/main/java/{root_package}/{packageName}/model/{entity}Repository.java"
