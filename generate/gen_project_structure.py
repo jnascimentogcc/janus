@@ -17,6 +17,11 @@ def gen_project_structure():
         f"../output/src/main/java/{root_package[0]}/{root_package[1]}/helper/dto",
         f"../output/src/main/java/{root_package[0]}/{root_package[1]}/helper/controller",
         f"../output/src/main/java/{root_package[0]}/{root_package[1]}/helper/exception",
+        f"../output/src/main/java/{root_package[0]}/{root_package[1]}/security",
+        f"../output/src/main/java/{root_package[0]}/{root_package[1]}/security/config",
+        f"../output/src/main/java/{root_package[0]}/{root_package[1]}/security/controller",
+        f"../output/src/main/java/{root_package[0]}/{root_package[1]}/security/model",
+        f"../output/src/main/java/{root_package[0]}/{root_package[1]}/security/service",
         "../output/src/main/resources"
     ]
     for process in config["buzzProcesses"]:

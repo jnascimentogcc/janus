@@ -1,0 +1,11 @@
+package {{ root_package }}.security.controller;
+
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@Builder
+public class LoginRequest {
+    private String email;
+    private String password;
+}

@@ -20,31 +20,31 @@ public class SupplyController {
     {% for entity in entities -%}
     {% for op in entity.ops -%}
     {% if op.verb == "GET" and op.type == "SIMPLE" -%}
-    @GetMapping("${apiprefix.v1}/{{ entity.entity_var|lower }}/{id}")
+    @GetMapping("${endpoint.prefix.api-v1}/{{ entity.entity_var|lower }}/{id}")
     public {{ entity.entity }}DTO get{{ entity.entity }}(@PathVariable(name = "id") String id) {
         return {{ service|lower }}Service.get{{ entity.entity }}(id);
     }
     {% endif -%}
     {% if op.verb == "GET" and op.type == "ALL" -%}
-    @GetMapping("${apiprefix.v1}/{{ entity.entity_var|lower }}")
+    @GetMapping("${endpoint.prefix.api-v1}/{{ entity.entity_var|lower }}")
     public List<{{ entity.entity }}DTO> getAll{{ entity.entity }}() {
         return {{ service|lower }}Service.getAll{{ entity.entity }}();
     }
     {%- endif %}
     {% if op.verb == "POST" -%}
-    @PostMapping("${apiprefix.v1}/{{ entity.entity_var|lower }}")
+    @PostMapping("${endpoint.prefix.api-v1}/{{ entity.entity_var|lower }}")
     public {{ entity.entity }}DTO add{{ entity.entity }}(@RequestBody {{ entity.entity }}DTO {{ entity.entity_var }}DTO) {
         return {{ service|lower }}Service.add{{ entity.entity }}({{ entity.entity_var }}DTO);
     }
     {% endif -%}
     {% if op.verb == "PUT" -%}
-    @PutMapping("${apiprefix.v1}/{{ entity.entity_var|lower }}/{id}")
+    @PutMapping("${endpoint.prefix.api-v1}/{{ entity.entity_var|lower }}/{id}")
     public {{ entity.entity }}DTO update{{ entity.entity }}(@PathVariable(name = "id") String id, @RequestBody {{ entity.entity }}DTO {{ entity.entity_var }}DTO) {
         return {{ service|lower }}Service.update{{ entity.entity }}(id, {{ entity.entity_var }}DTO);
     }
     {% endif -%}
     {% if op.verb == "DELETE" -%}
-    @DeleteMapping("${apiprefix.v1}/{{ entity.entity_var|lower }}/{id}")
+    @DeleteMapping("${endpoint.prefix.api-v1}/{{ entity.entity_var|lower }}/{id}")
     public void delete{{ entity.entity }}(@PathVariable(name = "id") String id) {
         {{ service|lower }}Service.delete{{ entity.entity }}(id);
     }

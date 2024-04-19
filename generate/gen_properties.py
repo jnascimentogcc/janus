@@ -5,7 +5,7 @@ from helper.read_config import get_janus_config
 
 def gen_properties():
     env = Environment(loader=FileSystemLoader("../templates/"))
-    template = env.get_template("application_properties.template")
+    template = env.get_template("properties.template")
 
     config = get_janus_config()
     content = template.render(

@@ -1,5 +1,5 @@
-from jinja2 import Environment, FileSystemLoader
 import camelcaser as cc
+from jinja2 import Environment, FileSystemLoader
 
 from helper.read_config import get_janus_config
 

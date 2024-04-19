@@ -1,4 +1,4 @@
-apiprefix.v1=/api/v1
+endpoint.prefix.api-v1=/api/v1
 logging.level.{{ root_package }}=INFO
 logging.level.root=WARN
 server.port={{ server_port }}
@@ -15,3 +15,6 @@ spring.jpa.properties.hibernate.jdbc.time_zone=UTC
 spring.jpa.properties.jakarta.persistence.validation.mode=none
 spring.jpa.show-sql=true
 spring.main.allow-circular-references=true
+# TODO: Change to your own key
+security.jwt.secret-key=$2a$12$JxgRD9TVeZghcU6C/YYZOexKWESU.6jxo0lnzK5H5KCYno2D/qqMO
+
