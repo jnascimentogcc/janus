@@ -40,39 +40,54 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/").denyAll()
                         .requestMatchers(String.format("/auth%s/login", endpointProperties.getApiV1())).permitAll()
-                        .requestMatchers(HttpMethod.GET, String.format("/supply%s/customer", endpointProperties.getApiV1())).hasAnyRole(
+                        {%- for buzz in process %}
+                        {%- for domain in buzz.domains %}
+                        {%- for op in domain.ops %}
+                        {%- if op == "GET" %}
+                        .requestMatchers(HttpMethod.GET, String.format("/{{ buzz.buzz|lower }}%s/{{ domain.domain|lower }}/**", endpointProperties.getApiV1())).hasAnyRole(
                                 SecurityRoles.ADMIN.name(),
-                                SecurityRoles.MANAGER_SUPPLY.name(),
-                                SecurityRoles.MANAGER_CUSTOMER.name(),
-                                SecurityRoles.ALL_CUSTOMER.name()
+                                SecurityRoles.MANAGER_{{ buzz.buzz|upper }}.name(),
+                                SecurityRoles.MANAGER_{{ domain.domain|upper }}.name(),
+                                SecurityRoles.GET_{{ domain.domain|upper }}.name()
                         )
-                        .requestMatchers(HttpMethod.GET, String.format("/supply%s/customer/**", endpointProperties.getApiV1())).hasAnyRole(
+                        {%- endif %}
+                        {%- if op == "ALL" %}
+                        .requestMatchers(HttpMethod.GET, String.format("/{{ buzz.buzz|lower }}%s/{{ domain.domain|lower }}", endpointProperties.getApiV1())).hasAnyRole(
                                 SecurityRoles.ADMIN.name(),
-                                SecurityRoles.MANAGER_SUPPLY.name(),
-                                SecurityRoles.MANAGER_CUSTOMER.name(),
-                                SecurityRoles.GET_CUSTOMER.name()
+                                SecurityRoles.MANAGER_{{ buzz.buzz|upper }}.name(),
+                                SecurityRoles.MANAGER_{{ domain.domain|upper }}.name(),
+                                SecurityRoles.ALL_{{ domain.domain|upper }}.name()
                         )
-                        .requestMatchers(HttpMethod.POST, String.format("/supply%s/customer", endpointProperties.getApiV1())).hasAnyRole(
+                        {%- endif %}
+                        {%- if op == "POST" %}
+                        .requestMatchers(HttpMethod.POST, String.format("/{{ buzz.buzz|lower }}%s/{{ domain.domain|lower }}", endpointProperties.getApiV1())).hasAnyRole(
                                 SecurityRoles.ADMIN.name(),
-                                SecurityRoles.MANAGER_SUPPLY.name(),
-                                SecurityRoles.MANAGER_CUSTOMER.name(),
-                                SecurityRoles.ADD_CUSTOMER.name()
+                                SecurityRoles.MANAGER_{{ buzz.buzz|upper }}.name(),
+                                SecurityRoles.MANAGER_{{ domain.domain|upper }}.name(),
+                                SecurityRoles.ADD_{{ domain.domain|upper }}.name()
                         )
-                        .requestMatchers(HttpMethod.PUT, String.format("/supply%s/customer/**", endpointProperties.getApiV1())).hasAnyRole(
+                        {%- endif %}
+                        {%- if op == "PUT" %}
+                        .requestMatchers(HttpMethod.PUT, String.format("/{{ buzz.buzz|lower }}%s/{{ domain.domain|lower }}/**", endpointProperties.getApiV1())).hasAnyRole(
                                 SecurityRoles.ADMIN.name(),
-                                SecurityRoles.MANAGER_SUPPLY.name(),
-                                SecurityRoles.MANAGER_CUSTOMER.name(),
-                                SecurityRoles.UPDATE_CUSTOMER.name()
+                                SecurityRoles.MANAGER_{{ buzz.buzz|upper }}.name(),
+                                SecurityRoles.MANAGER_{{ domain.domain|upper }}.name(),
+                                SecurityRoles.UPDATE_{{ domain.domain|upper }}.name()
                         )
-                        .requestMatchers(HttpMethod.DELETE, String.format("/supply%s/customer/**", endpointProperties.getApiV1())).hasAnyRole(
+                        {%- endif %}
+                        {%- if op == "DELETE" %}
+                        .requestMatchers(HttpMethod.DELETE, String.format("/{{ buzz.buzz|lower }}%s/{{ domain.domain|lower }}/**", endpointProperties.getApiV1())).hasAnyRole(
                                 SecurityRoles.ADMIN.name(),
-                                SecurityRoles.MANAGER_SUPPLY.name(),
-                                SecurityRoles.MANAGER_CUSTOMER.name(),
-                                SecurityRoles.DELETE_CUSTOMER.name()
+                                SecurityRoles.MANAGER_{{ buzz.buzz|upper }}.name(),
+                                SecurityRoles.MANAGER_{{ domain.domain|upper }}.name(),
+                                SecurityRoles.DELETE_{{ domain.domain|upper }}.name()
                         )
+                        {%- endif %}
+                        {%- endfor %}
+                        {%- endfor %}
+                        {%- endfor %}
                         .anyRequest().authenticated()
                 );
-
         return httpSecurity.build();
     }
 
