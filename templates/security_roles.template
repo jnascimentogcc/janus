@@ -2,6 +2,10 @@ package {{ root_package }}.security.model;
 
 public enum SecurityRoles {
     ADMIN,
-    MANAGER_SUPPLY,
-    MANAGER_CUSTOMER, ALL_CUSTOMER, GET_CUSTOMER, ADD_CUSTOMER, UPDATE_CUSTOMER, DELETE_CUSTOMER,
+    {%- for buzz in process %}
+    {{ buzz.manager_buzz }}
+    {%- for role in buzz.roles_domain %}
+    {{ role }}
+    {%- endfor %}
+    {%- endfor %}
 }
