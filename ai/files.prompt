@@ -1,3 +1,4 @@
+
 ../output/src/main/java/com/autoloan/supply/model/CustomerRepository.java
 ../output/src/main/java/com/autoloan/supply/model/GroupProductRepository.java
 ../output/src/main/java/com/autoloan/supply/model/ItemOrderRepository.java
@@ -16,5 +17,7 @@
 ../output/src/main/java/com/autoloan/supply/dto/OrderDTO.java
 ../output/src/main/java/com/autoloan/supply/dto/ProductDTO.java
 ../output/src/main/java/com/autoloan/supply/dto/TaxDTO.java
+../output/src/main/java/com/autoloan/supply/service/SupplyService.java
+../output/src/main/java/com/autoloan/supply/controller/SupplyController.java
 ../output/src/main/java/com/autoloan/supply/service/SupplyService.java
 ../output/src/main/java/com/autoloan/supply/controller/SupplyController.java

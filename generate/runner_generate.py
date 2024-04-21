@@ -1,4 +1,7 @@
 from generate.export_project import gen_export_project
+"""
+from generate.gen_ai_controller import gen_ai_controller
+from generate.gen_ai_service import gen_ai_service
 from generate.gen_application import gen_application
 from generate.gen_auth_controller import gen_auth_controller
 from generate.gen_auth_service import gen_auth_service
@@ -59,6 +62,10 @@ print("Generating Service Classes...")
 gen_service()
 print("Generating Controller Classes...")
 gen_controller()
+print("Generating AI Service Classes...")
+gen_ai_service()
+print("Generating AI Controller Classes...")
+gen_ai_controller()
 print("Generating Security Auth Service...")
 gen_auth_service()
 print("Generating Security User Service...")
@@ -93,6 +100,6 @@ print("Generating Config Web Security...")
 gen_web_security_config()
 print("Generating Config Security Roles...")
 gen_security_roles()
-
+"""
 print("Exporting Project...")
-# gen_export_project()
+gen_export_project()

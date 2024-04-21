@@ -51,4 +51,7 @@ public class SupplyController {
     {%- endif %}
     {% endfor %}
     {% endfor %}
+    {% for method in ai -%}
+    {{ method }}
+    {%- endfor %}
 }

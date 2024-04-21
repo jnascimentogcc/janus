@@ -14,11 +14,11 @@
       "ai": [
         {
           "scope": "SERVICE",
-          "prompt": "Generate a Java method to be added in SupplyService.java that calculate the total of the order"
+          "prompt": "Generate a Java method to be added to the Supply Service class to calculate the total of the specific order: I will give you the order number and get the order entity from order repository and from order entity get all item order and calculate the sum multiply quantity by price. Generate only the method between bracktes"
         },
         {
           "scope": "CONTROLLER",
-          "prompt": "Generate a Java method to be added in SupplyController.java that call the service method that calculate the total of the order"
+          "prompt": "Generate a Java method with get endpoint to be added to the Supply Controller.java: Apply the same patter used in the controller and use the method calculate the total order on the servcice class. Generate only the method between bracktes"
         }
       ],
       "cruds": [
