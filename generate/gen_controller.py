@@ -26,3 +26,5 @@ def gen_controller():
         filename = f"../output/src/main/java/{root_package}/{packageName}/controller/{cc.make_camel_case(packageName)}Controller.java"
         with open(filename, mode="w", encoding="utf-8") as output:
             output.write(content)
+        with open("../ai/files.prompt", mode="a", encoding="utf-8") as output:
+            output.write("\n" + filename)

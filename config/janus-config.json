@@ -13,9 +13,12 @@
       "packageName": "supply",
       "ai": [
         {
-          "scope": "ALL",
-          "service": "Generate a Java method to be added in SupplyService.java that calculate the total of the order",
-          "controller": "Generate a Java method to be added in SupplyController.java that call the service method that calculate the total of the order"
+          "scope": "SERVICE",
+          "prompt": "Generate a Java method to be added in SupplyService.java that calculate the total of the order"
+        },
+        {
+          "scope": "CONTROLLER",
+          "prompt": "Generate a Java method to be added in SupplyController.java that call the service method that calculate the total of the order"
         }
       ],
       "cruds": [

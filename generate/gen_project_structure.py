@@ -4,6 +4,7 @@ from helper.read_config import get_janus_config
 
 
 def gen_project_structure():
+    os.remove("../ai/files.prompt")
     config = get_janus_config()
     root_package = config["rootPackage"].split(".")
     folders_array = [

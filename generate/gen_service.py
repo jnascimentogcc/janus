@@ -34,3 +34,5 @@ def gen_service():
         filename = f"../output/src/main/java/{root_package}/{package_name}/service/{cc.make_camel_case(package_name)}Service.java"
         with open(filename, mode="w", encoding="utf-8") as output:
             output.write(content)
+        with open("../ai/files.prompt", mode="a", encoding="utf-8") as output:
+            output.write("\n" + filename)

@@ -31,3 +31,5 @@ def gen_dto():
             filename = f"../output/src/main/java/{root_package}/{packageName}/dto/{entity}DTO.java"
             with open(filename, mode="w", encoding="utf-8") as output:
                 output.write(content)
+            with open("../ai/files.prompt", mode="a", encoding="utf-8") as output:
+                output.write("\n" + filename)
