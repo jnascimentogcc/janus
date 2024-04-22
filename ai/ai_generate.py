@@ -3,8 +3,8 @@ from openai import OpenAI
 
 def gen_ai(prompt):
     client = OpenAI(
-        organization="org-Q1HVeMNdryVyQSQTSGpIRZac",
-        api_key="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"
+        organization="<<org-id>>",
+        api_key="<<api-key>>"
     )
     file_prompt = open('../ai/files.prompt', 'r')
     files = file_prompt.readlines()
