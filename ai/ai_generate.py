@@ -3,8 +3,8 @@ from openai import OpenAI
 
 def gen_ai(prompt):
     client = OpenAI(
-        organization="<<org-id>>",
-        api_key="<<api-key>>"
+        organization="org-Q1HVeMNdryVyQSQTSGpIRZac",
+        api_key="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"
     )
     file_prompt = open('../ai/files.prompt', 'r')
     files = file_prompt.readlines()
@@ -22,7 +22,7 @@ def gen_ai(prompt):
         "content": prompt
     })
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=prompts
     )
     return response.choices[0].message.content.split("```java")[1].split("```")[0]

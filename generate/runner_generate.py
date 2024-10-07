@@ -1,5 +1,5 @@
 from generate.export_project import gen_export_project
-"""
+
 from generate.gen_ai_controller import gen_ai_controller
 from generate.gen_ai_service import gen_ai_service
 from generate.gen_application import gen_application
@@ -100,6 +100,6 @@ print("Generating Config Web Security...")
 gen_web_security_config()
 print("Generating Config Security Roles...")
 gen_security_roles()
-"""
+
 print("Exporting Project...")
 gen_export_project()
