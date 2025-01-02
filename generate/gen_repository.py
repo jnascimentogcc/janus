@@ -9,7 +9,7 @@ def gen_repository():
     template = env.get_template("repository.template")
 
     config = get_janus_config()
-    for process in config["buzzProcesses"]:
+    for process in config["buzzDomain"]:
         packageName = process["packageName"]
         for crud in process["cruds"]:
             arr_unique = []

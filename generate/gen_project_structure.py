@@ -25,7 +25,7 @@ def gen_project_structure():
         f"../output/src/main/java/{root_package[0]}/{root_package[1]}/security/service",
         "../output/src/main/resources"
     ]
-    for process in config["buzzProcesses"]:
+    for process in config["buzzDomain"]:
         folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}")
         folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}/model")
         folders_array.append(f"../output/src/main/java/{root_package[0]}/{root_package[1]}/{process["packageName"]}/dto")

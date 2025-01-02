@@ -9,7 +9,7 @@ def gen_service():
     template = env.get_template("service.template")
 
     config = get_janus_config()
-    for process in config["buzzProcesses"]:
+    for process in config["buzzDomain"]:
         package_name = process["packageName"]
         arr_entity = []
         for crud in process["cruds"]:

@@ -1,4 +1,4 @@
-package {{ root_package }}.security.model;
+package {{ root_package }}.security.config;
 
 public enum SecurityRoles {
     ADMIN,

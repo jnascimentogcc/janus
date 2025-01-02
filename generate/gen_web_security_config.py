@@ -10,7 +10,7 @@ def gen_web_security_config():
     config = get_janus_config()
 
     arr_buzz = []
-    for x in config["buzzProcesses"]:
+    for x in config["buzzDomain"]:
         arr_domain = []
         for y in x["cruds"]:
             arr_op = []

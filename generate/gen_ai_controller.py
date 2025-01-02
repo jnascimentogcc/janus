@@ -10,8 +10,8 @@ def gen_ai_controller():
     template = env.get_template("controller.template")
 
     config = get_janus_config()
-    for process in config["buzzProcesses"]:
-        packageName = process["packageName"]
+    for process in config["buzzDomain"]:
+        package_name = process["packageName"]
         arr_entity = []
         for crud in process["cruds"]:
             crud["entity"] = cc.make_camel_case(crud["table"])
@@ -19,15 +19,15 @@ def gen_ai_controller():
             arr_entity.append(crud)
         arr_ai = []
         root_package = config["rootPackage"].replace(".", "/")
-        filename = f"../output/src/main/java/{root_package}/{packageName}/controller/{cc.make_camel_case(packageName)}Controller.java"
+        filename = f"../output/src/main/java/{root_package}/{package_name}/controller/{cc.make_camel_case(package_name)}Controller.java"
         for ai in process["ai"]:
             if ai["scope"] == "CONTROLLER":
                 arr_ai.append(gen_ai(ai["prompt"]))
                 content = template.render(
                     root_package=config["rootPackage"],
-                    package=packageName,
+                    package=package_name,
                     entities=arr_entity,
-                    service=cc.make_camel_case(packageName),
+                    service=cc.make_camel_case(package_name),
                     ai=arr_ai
                 )
                 with open(filename, mode="w", encoding="utf-8") as output:

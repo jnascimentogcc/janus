@@ -7,18 +7,18 @@
   "databasePassword": "autoloan",
   "databaseSchema": "autoloan",
   "serverPort": "5001",
-  "buzzProcesses": [
+  "buzzDomain": [
     {
       "name": "Supply",
       "packageName": "supply",
       "ai": [
         {
           "scope": "SERVICE",
-          "prompt": "Generate a Java method to be added to the Supply Service class to calculate the total of the specific order: I will give you the order number and get the order entity from order repository and from order entity get all item order and calculate the sum multiply quantity by price. Generate only the method between bracktes"
+          "prompt": "Generate a Java method to be added to the Supply Service class to calculate the total of the specific order: I will give you the order number and get the order entity from order repository and from order entity get all item order and calculate the sum multiply quantity by price. Generate only the method between brackets"
         },
         {
           "scope": "CONTROLLER",
-          "prompt": "Generate a Java method with get endpoint to be added to the Supply Controller.java: Apply the same patter used in the controller and use the method calculate the total order on the servcice class. Generate only the method between bracktes"
+          "prompt": "Generate a Java method with get endpoint to be added to the Supply Controller: Apply the same pattern used in the controllers and use the method calculate the total order from the service class. Generate only the method between brackets"
         }
       ],
       "cruds": [

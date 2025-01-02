@@ -9,7 +9,7 @@ def gen_controller():
     template = env.get_template("controller.template")
 
     config = get_janus_config()
-    for process in config["buzzProcesses"]:
+    for process in config["buzzDomain"]:
         packageName = process["packageName"]
         arr_entity = []
         for crud in process["cruds"]:

@@ -10,7 +10,7 @@ def gen_security_roles():
     config = get_janus_config()
 
     arr_buzz = []
-    for x in config["buzzProcesses"]:
+    for x in config["buzzDomain"]:
         arr_cruds = []
         for y in x["cruds"]:
             arr_ops = ["MANAGER_" + y["table"].upper()]

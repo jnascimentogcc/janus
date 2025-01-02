@@ -9,7 +9,7 @@ def gen_dto():
     template = env.get_template("dto.template")
 
     config = get_janus_config()
-    for process in config["buzzProcesses"]:
+    for process in config["buzzDomain"]:
         packageName = process["packageName"]
         for crud in process["cruds"]:
             entity = cc.make_camel_case(crud["table"])

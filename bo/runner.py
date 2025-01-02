@@ -77,12 +77,11 @@ for table_name in arr_table:
         "ops": get_ops()
     })
 
-buzz_process = []
-buzz_process.append({
+buzz_process = [{
     "name": "Supply",
     "packageName": "supply",
     "cruds": arr_crud
-})
+}]
 
 janus_conf = {
     "appName": "AutoLoan - Car Loan",
@@ -93,7 +92,7 @@ janus_conf = {
     "databasePassword": "autoloan",
     "databaseSchema": "autoloan",
     "serverPort": "5001",
-    "buzzProcesses": buzz_process
+    "buzzDomain": buzz_process
 }
 
 with open("janus-config.json", "w") as outfile:
